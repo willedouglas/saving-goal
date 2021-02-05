@@ -1,9 +1,13 @@
 import vue from '@vitejs/plugin-vue'
 
-/**
- * https://vitejs.dev/config/
- * @type {import('vite').UserConfig}
- */
+const path = require('path');
+
 export default {
-  plugins: [vue()]
-}
+  plugins: [vue()],
+  alias: {
+    'src': path.resolve(__dirname, './src'),
+    '@assets': path.resolve(__dirname, './src/assets'),
+    '@modules': path.resolve(__dirname, './src/modules'),
+    '@components': path.resolve(__dirname, './src/components'),
+  },
+};
