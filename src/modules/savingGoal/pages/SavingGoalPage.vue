@@ -2,13 +2,13 @@
   <div class="saving-goal-page">
     <div class="saving-goal-page__subtitle">
       <heading
-        type="primary"
         size="lg"
+        color="primary"
       >
         Let's plan your <b>saving goal.</b>
       </heading>
     </div>
-    <saving-goal-form />
+    <saving-goal-form :on-submit="onSubmit" />
   </div>
 </template>
 
@@ -20,15 +20,20 @@ export default {
   components: {
     SavingGoalForm,
   },
+  methods: {
+    onSubmit() {
+      console.log('submitted!');
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .saving-goal-page {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 
   .saving-goal-page__subtitle {
     margin-top: 48px;

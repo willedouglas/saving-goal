@@ -8,14 +8,14 @@
     </div>
     <div class="panel-description">
       <heading
-        font="rubik"
         size="xl"
+        font-family="rubik"
       >
         {{ title }}
       </heading>
       <heading
         size="md"
-        type="subtitle"
+        color="subtitle"
       >
         {{ description }}
       </heading>
@@ -40,6 +40,9 @@ export default {
     icon: {
       type: String,
       default: '',
+      validator(value) {
+        return ['house'].includes(value);
+      },
     },
   },
   computed: {

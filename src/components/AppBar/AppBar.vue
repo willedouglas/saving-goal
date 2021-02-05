@@ -28,14 +28,14 @@ export default {
   }
 };
 
-@media (max-height: 812px) {
+@media (max-width: 812px) {
   .header {
     height: 56px;
 
     img {
-    margin-left: 16px;
-    margin-top: 16px;
-  }
+      margin-left: 16px;
+      margin-top: 16px;
+    }
   }
 };
 </style>
