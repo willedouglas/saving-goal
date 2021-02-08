@@ -5,17 +5,24 @@
     font-family="rubik"
     :font-weight="900"
   >
-    ${{ total }}
+    ${{ formattedValue }}
   </heading>
 </template>
 
 <script>
+import { formatValue } from '@helpers/format';
+
 export default {
   name: 'HeadingTotal',
   props: {
     total: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    formattedValue() {
+      return formatValue(this.total);
     },
   },
 };

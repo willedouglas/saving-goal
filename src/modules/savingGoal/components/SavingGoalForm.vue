@@ -9,12 +9,12 @@
       <row>
         <column :size="7">
           <input-label label="Total amount">
-            <input-money />
+            <input-money v-model="totalAmount" />
           </input-label>
         </column>
         <column :size="5">
           <input-label label="Reach goal by">
-            <input-date />
+            <input-date :value="reachGoalBy" />
           </input-label>
         </column>
       </row>
@@ -22,7 +22,7 @@
     <div class="goal-details">
       <panel-total
         title="Monthly amount"
-        :total="1123"
+        :total="11293.48"
       >
         <template #description>
           <heading size="xs">
@@ -47,6 +47,12 @@ export default {
       type: Function,
       required: true,
     },
+  },
+  data() {
+    return {
+      totalAmount: 0,
+      reachGoalBy: '',
+    };
   },
   methods: {
     handleOnSubmit() {

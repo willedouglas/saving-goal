@@ -2,6 +2,7 @@ import AppBar from '@components/AppBar/AppBar.vue';
 import Card from '@components/Card/Card.vue';
 import Heading from '@components/Heading/Heading.vue';
 import Panel from '@components/Panel/Panel.vue';
+import BaseInput from '@components/Input/BaseInput.vue';
 import InputMoney from '@components/Input/InputMoney.vue';
 import InputDate from '@components/Input/InputDate.vue';
 import InputLabel from '@components/Input/InputLabel.vue';
@@ -16,6 +17,7 @@ export default [
   Card,
   Heading,
   Panel,
+  BaseInput,
   InputMoney,
   InputDate,
   InputLabel,
