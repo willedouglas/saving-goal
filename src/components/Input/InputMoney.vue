@@ -27,7 +27,7 @@ export default {
       default: false,
     },
   },
-  emits: ['input'],
+  emits: ['update:modelValue'],
   data() {
     return {
       formattedValue: formatValue(this.modelValue, { absoluteOnly: this.absoluteOnly }),
@@ -47,7 +47,7 @@ export default {
     },
     onBlur(event) {
       const value = this.unformatValue(event.target.value);
-      this.$emit('input', value);
+      this.$emit('update:modelValue', value);
       this.update(value);
     },
     unformatValue(value) {
@@ -55,7 +55,7 @@ export default {
     },
     onKeyPress(event) {
       const char = String.fromCharCode(event.keyCode);
-      const isNumberRegex = /^[0-9]*$/;
+      const isNumberRegex = /^[\d,\s.\s]+$/;
       return !isNumberRegex.test(char) ? event.preventDefault() : true;
     },
   },

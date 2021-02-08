@@ -2,7 +2,8 @@
   <div class="input-date">
     <img
       class="left-chevron"
-      :src="leftChevron"
+      :src="leftChevronIcon"
+      @click="nextPeriod"
     >
     <div class="date-display">
       <heading :font-weight="900">
@@ -14,7 +15,8 @@
     </div>
     <img
       class="right-chevron"
-      :src="rightChevron"
+      :src="rightChevronIcon"
+      @click="backPeriod"
     >
   </div>
 </template>
@@ -23,26 +25,74 @@
 import LeftChevron from '@assets/left-chevron.svg';
 import RightChevron from '@assets/right-chevron.svg';
 
+import {
+  getMonth,
+  getYear,
+  addMonth,
+  subtractMonth,
+  getCurrentDate,
+} from '@helpers/date';
+
 export default {
   name: 'InputDate',
   props: {
-    date: {
+    modelValue: {
       type: String,
-      default: ''
+      default: getCurrentDate(),
     },
+  },
+emits: ['update:modelValue'],
+  data() {
+    return {
+      date: this.modelValue,
+    };
   },
   computed: {
     month() {
-      return 'October';
+      return getMonth(this.date);
     },
     year() {
-      return '2021';
+      return getYear(this.date);
     },
-    leftChevron() {
+    leftChevronIcon() {
       return LeftChevron;
     },
-    rightChevron() {
+    rightChevronIcon() {
       return RightChevron;
+    },
+  },
+  watch: {
+    date(value) {
+      this.onChange(value);
+    },
+  },
+  created() {
+    window.addEventListener('keydown', this.onKeyPress);
+  },
+  unmounted() {
+    window.removeEventListener('keydown', this.onKeyPress);
+  },
+  methods: {
+    backPeriod() {
+      const futureMonth = addMonth(this.date);
+      this.date = futureMonth;
+    },
+    nextPeriod() {
+      const pastMonth = subtractMonth(this.date);
+      this.date = pastMonth;
+    },
+    onKeyPress(e) {
+      const { code } = e;
+
+      const keyboardActions = {
+        ArrowLeft: this.nextPeriod,
+        ArrowRight: this.backPeriod,
+      }
+
+      return keyboardActions[code] && keyboardActions[code]();
+    },
+    onChange() {
+      this.$emit('update:modelValue', this.date)
     },
   },
 };

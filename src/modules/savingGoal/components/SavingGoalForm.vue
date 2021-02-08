@@ -14,7 +14,7 @@
         </column>
         <column :size="5">
           <input-label label="Reach goal by">
-            <input-date :value="reachGoalBy" />
+            <input-date v-model="reachGoalBy" />
           </input-label>
         </column>
       </row>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { getCurrentDate } from '@helpers/date';
+
 export default {
   name: 'SavingGoalForm',
   props: {
@@ -51,8 +53,16 @@ export default {
   data() {
     return {
       totalAmount: 0,
-      reachGoalBy: '',
+      reachGoalBy: getCurrentDate(),
     };
+  },
+  watch: {
+    reachGoalBy(value) {
+      console.log('reachGoalBy', value);
+    },
+    totalAmount(value) {
+      console.log('totalAmount', value);
+    },
   },
   methods: {
     handleOnSubmit() {
