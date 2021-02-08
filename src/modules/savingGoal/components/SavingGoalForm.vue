@@ -1,10 +1,6 @@
 <template>
   <card class="saving-goal-form">
-    <panel
-      title="Buy a house"
-      icon="house"
-      description="Saving goal"
-    />
+    <slot />
     <div class="goal-values">
       <row>
         <column :size="7">
@@ -14,7 +10,10 @@
         </column>
         <column :size="5">
           <input-label label="Reach goal by">
-            <input-date v-model="reachGoalBy" />
+            <input-date
+              v-model="reachGoalBy"
+              :is-valid-date="isValidDate"
+            />
           </input-label>
         </column>
       </row>
@@ -22,11 +21,11 @@
     <div class="goal-details">
       <panel-total
         title="Monthly amount"
-        :total="11293.48"
+        :total="monthlyAmount"
       >
         <template #description>
           <heading size="xs">
-            You're planning <b>48 monthly deposits</b> to reach your <b>$25,000</b> goal by <b>October 2020.</b>
+            You're planning <b>{{ monthsDifference }} monthly deposits</b> to reach your <b>${{ totalAmountCurrency }}</b> goal by <b>{{ reachGoalByMonth }} {{ reachGoalByYear }}.</b>
           </heading>
         </template>
       </panel-total>
@@ -40,7 +39,9 @@
 </template>
 
 <script>
-import { getCurrentDate } from '@helpers/date';
+import { addYear, getCurrentDate, getMonth, getYear } from '@helpers/date';
+import { formatValue } from '@helpers/format';
+import { calculateMonthlyDeposit, isValidDate } from './savingGoalFormService';
 
 export default {
   name: 'SavingGoalForm',
@@ -49,24 +50,57 @@ export default {
       type: Function,
       required: true,
     },
+    amount: {
+      type: Number,
+      default: 10000,
+    },
+    reach: {
+      type: String,
+      default: addYear(getCurrentDate()),
+    },
   },
   data() {
     return {
-      totalAmount: 0,
-      reachGoalBy: getCurrentDate(),
+      totalAmount: this.amount,
+      reachGoalBy: this.reach,
+      monthsDifference: 0,
+      monthlyAmount: 0,
     };
+  },
+  computed: {
+    totalAmountCurrency() {
+      return formatValue(this.totalAmount);
+    },
+    reachGoalByMonth() {
+      return getMonth(this.reachGoalBy);
+    },
+    reachGoalByYear() {
+      return getYear(this.reachGoalBy);
+    },
   },
   watch: {
     reachGoalBy(value) {
-      console.log('reachGoalBy', value);
+      this.calculateMonthlyDeposit(this.totalAmount, value);
     },
     totalAmount(value) {
-      console.log('totalAmount', value);
+      this.calculateMonthlyDeposit(value, this.reachGoalBy);
     },
+  },
+  mounted() {
+    this.calculateMonthlyDeposit(this.totalAmount, this.reachGoalBy);
   },
   methods: {
     handleOnSubmit() {
-      this.onSubmit();
+      const { totalAmount, reachGoalBy } = this;
+      this.onSubmit({ totalAmount, reachGoalBy });
+    },
+    isValidDate(date) {
+      return isValidDate(date);
+    },
+    calculateMonthlyDeposit() {
+      const { monthsDifference, monthlyAmount } = calculateMonthlyDeposit(this.totalAmount, this.reachGoalBy);
+      this.monthsDifference = monthsDifference;
+      this.monthlyAmount = monthlyAmount;
     },
   },
 };

@@ -40,6 +40,10 @@ export default {
       type: String,
       default: getCurrentDate(),
     },
+    isValidDate: {
+      type: Function,
+      default: () => {},
+    },
   },
 emits: ['update:modelValue'],
   data() {
@@ -74,12 +78,18 @@ emits: ['update:modelValue'],
   },
   methods: {
     backPeriod() {
-      const futureMonth = addMonth(this.date);
-      this.date = futureMonth;
+      const futureMonthDate = addMonth(this.date);
+
+      if (this.isValidDate(futureMonthDate))  {
+        this.date = futureMonthDate;
+      }
     },
     nextPeriod() {
-      const pastMonth = subtractMonth(this.date);
-      this.date = pastMonth;
+      const pastMonthDate = subtractMonth(this.date);
+
+      if (this.isValidDate(pastMonthDate))  {
+        this.date = pastMonthDate;
+      }
     },
     onKeyPress(e) {
       const { code } = e;

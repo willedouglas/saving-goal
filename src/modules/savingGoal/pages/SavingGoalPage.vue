@@ -8,21 +8,38 @@
         Let's plan your <b>saving goal.</b>
       </heading>
     </div>
-    <saving-goal-form :on-submit="onSubmit" />
+    <saving-goal-form
+      :amount="amount"
+      :reach="reach"
+      :on-submit="onSubmit"
+    >
+      <panel
+        title="Buy a house"
+        icon="house"
+        description="Saving goal"
+      />
+    </saving-goal-form>
   </div>
 </template>
 
 <script>
 import SavingGoalForm from '@modules/savingGoal/components/SavingGoalForm.vue';
+import { addYear, getCurrentDate } from '@helpers/date';
 
 export default {
   name: 'SavingGoalPage',
   components: {
     SavingGoalForm,
   },
+  data() {
+    return {
+      amount: 10000,
+      reach: addYear(getCurrentDate()),
+    };
+  },
   methods: {
-    onSubmit() {
-      console.log('submitted!');
+    onSubmit({ totalAmount, reachGoalBy }) {
+      console.log('submitted!', { totalAmount, reachGoalBy });
     },
   },
 };
