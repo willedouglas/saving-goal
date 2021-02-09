@@ -8,13 +8,11 @@ function shallowMountComponent(props, options) {
 describe('Row', () => {
   it('should render row with content', () => {
     const wrapper = shallowMountComponent({}, { slots: {
-      default: <div class="col"><div class="content"></div></div>,
+      default: 'row content',
     }});
 
     const row = wrapper.find('.row');
-    const column = row.find('.col');
-    const content = column.find('.content')
     
-    expect(content.exists()).toBeTruthy();
+    expect(row.text()).toBe('row content');
   });
 });

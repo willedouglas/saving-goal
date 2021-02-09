@@ -15,12 +15,11 @@ describe('Column', () => {
 
   it('should render column content', () => {
     const wrapper = shallowMountComponent({ size: 4 }, { slots: {
-      default: <div class="content"></div>,
+      default: 'mocked column slot content',
     }});
 
     const column = wrapper.find('.col');
-    const content = column.find('.content');
     
-    expect(content.exists()).toBeTruthy();
+    expect(column.text()).toBe('mocked column slot content');
   });
 });

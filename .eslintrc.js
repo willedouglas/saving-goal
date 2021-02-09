@@ -1,5 +1,4 @@
 module.exports = {
-  parser: 'babel-eslint',
   env: {
     'node': true,
     'jest/globals': true,

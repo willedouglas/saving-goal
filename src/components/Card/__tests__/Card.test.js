@@ -8,10 +8,10 @@ function shallowMountComponent(props, options) {
 describe('Card', () => {
   it('should render content inside card', () => {
     const wrapper = shallowMountComponent({}, { slots: {
-      default: <div class="card-content-mocked"></div>,
+      default: 'content mocked slot default',
     }});
     const divCardBody = wrapper.find('.card-body');
     
-    expect(divCardBody.find('.card-content-mocked').exists()).toBeTruthy();
+    expect(divCardBody.text()).toBe('content mocked slot default');
   });
 });

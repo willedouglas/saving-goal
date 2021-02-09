@@ -26,23 +26,21 @@ describe('PanelTotal', () => {
 
   it('should not render panel description when slot is default', () => {
     const wrapper = shallowMountComponent({ title: 'mocked title', total: 1000 }, { slots: {
-      default: <div class="panel-mocked"></div>,
+      default: 'mocked slot default',
     }});
     const panelTotal = wrapper.find('.panel-total');
     const panelDescription = panelTotal.find('.panel-description');
-    const panelContent = panelDescription.find('.panel-mocked');
     
-    expect(panelContent.exists()).toBeFalsy();
+    expect(panelDescription.text()).not.toBe('mocked slot default');
   });
 
   it('should render panel description when slot is description', () => {
     const wrapper = shallowMountComponent({ title: 'mocked title', total: 1000 }, { slots: {
-      description: <div class="panel-mocked"></div>,
+      description: 'mocked slot description',
     }});
     const panelTotal = wrapper.find('.panel-total');
     const panelDescription = panelTotal.find('.panel-description');
-    const panelContent = panelDescription.find('.panel-mocked');
     
-    expect(panelContent.exists()).toBeTruthy();
+    expect(panelDescription.text()).toBe('mocked slot description');
   });
 });
