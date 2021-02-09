@@ -41,5 +41,6 @@ button {
   border-radius: 32px;
   border-width: 0px;
   border-style: none;
+  cursor: pointer;
 }
 </style>
