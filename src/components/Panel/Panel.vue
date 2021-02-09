@@ -41,7 +41,7 @@ export default {
       type: String,
       default: '',
       validator(value) {
-        return ['house'].includes(value);
+        return ['', 'house'].includes(value);
       },
     },
   },

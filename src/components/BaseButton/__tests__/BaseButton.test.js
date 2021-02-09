@@ -1,15 +1,15 @@
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import BaseButton from '@components/BaseButton/BaseButton.vue';
 
 const mockOnClickFunction = jest.fn();
 
-function mountComponent(props, options) {
-  return mount(BaseButton, { props, ...options });
+function shallowMountComponent(props, options) {
+  return shallowMount(BaseButton, { props, ...options });
 }
 
 describe('BaseButton', () => {
   it('should render content text inside button', () => {
-    const wrapper = mountComponent({
+    const wrapper = shallowMountComponent({
       onClick: mockOnClickFunction }, {
       slots: {
         default: 'Button Text',
@@ -20,7 +20,7 @@ describe('BaseButton', () => {
   });
   
   it('should click in button', async () => {
-    const wrapper = mountComponent({
+    const wrapper = shallowMountComponent({
       onClick: mockOnClickFunction }, {
     });
   
