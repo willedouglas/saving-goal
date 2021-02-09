@@ -1,4 +1,4 @@
-import { getMonthsDifference, getCurrentDate, isBefore } from '@helpers/date';
+import { getMonthsDifference, getCurrentDate, isAfter } from '@helpers/date';
 
 export const calculateMonthlyDeposit = (totalAmount, reachGoalBy) => {
   const monthsDifference = getMonthsDifference(getCurrentDate(), reachGoalBy);
@@ -6,4 +6,4 @@ export const calculateMonthlyDeposit = (totalAmount, reachGoalBy) => {
   return { monthsDifference, monthlyAmount };
 };
 
-export const isValidDate = date => isBefore(date, getCurrentDate());
+export const isValidDate = date => isAfter(date, getCurrentDate());

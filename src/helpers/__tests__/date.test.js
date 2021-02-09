@@ -6,7 +6,7 @@ import {
   addMonth,
   subtractMonth,
   getMonthsDifference,
-  isBefore,
+  isAfter,
 } from '@helpers/date';
 
 const defaultMockDate = () => '2015-12-31'
@@ -50,13 +50,13 @@ describe('Date', () => {
     expect(difference).toBe(7);
   });
 
-  it('should not is before date', () => {
-    const before = isBefore(defaultMockDate(), finalMockDate());
-    expect(before).toBeFalsy();
+  it('should not is after date', () => {
+    const after = isAfter(defaultMockDate(), finalMockDate());
+    expect(after).toBeFalsy();
   });
 
-  it('should is before date', () => {
-    const before = isBefore(defaultMockDate(), anotherFinalMockDate());
-    expect(before).toBeTruthy();
+  it('should is after date', () => {
+    const after = isAfter(defaultMockDate(), anotherFinalMockDate());
+    expect(after).toBeTruthy();
   });
 });

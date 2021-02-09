@@ -34,6 +34,8 @@ module.exports = {
     'src/**/*/*.{js,vue}',
     '!src/main.js',
     '!src/components/Illustrations/**',
+    '!src/components/index.js',
+    '!src/components/theme.js',
     '!src/router/routes.js',
     '!src/router/index.js',
     '!**/node_modules/**',

@@ -3,7 +3,7 @@
     <img
       class="left-chevron"
       :src="leftChevronIcon"
-      @click="nextPeriod"
+      @click="backPeriod"
     >
     <div class="date-display">
       <heading :font-weight="900">
@@ -16,7 +16,7 @@
     <img
       class="right-chevron"
       :src="rightChevronIcon"
-      @click="backPeriod"
+      @click="nextPeriod"
     >
   </div>
 </template>
@@ -42,10 +42,10 @@ export default {
     },
     isValidDate: {
       type: Function,
-      default: () => {},
+      default: () => true,
     },
   },
-emits: ['update:modelValue'],
+  emits: ['update:modelValue'],
   data() {
     return {
       date: this.modelValue,
@@ -77,14 +77,14 @@ emits: ['update:modelValue'],
     window.removeEventListener('keydown', this.onKeyPress);
   },
   methods: {
-    backPeriod() {
+    nextPeriod() {
       const futureMonthDate = addMonth(this.date);
 
       if (this.isValidDate(futureMonthDate))  {
         this.date = futureMonthDate;
       }
     },
-    nextPeriod() {
+    backPeriod() {
       const pastMonthDate = subtractMonth(this.date);
 
       if (this.isValidDate(pastMonthDate))  {
@@ -95,8 +95,8 @@ emits: ['update:modelValue'],
       const { code } = e;
 
       const keyboardActions = {
-        ArrowLeft: this.nextPeriod,
-        ArrowRight: this.backPeriod,
+        ArrowLeft: this.backPeriod,
+        ArrowRight: this.nextPeriod,
       }
 
       return keyboardActions[code] && keyboardActions[code]();

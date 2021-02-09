@@ -16,4 +16,4 @@ export const subtractMonth = date => moment(date).subtract(1, 'months').format(D
 
 export const getMonthsDifference = (initialDate, finalDate) => moment(finalDate).diff(initialDate, "months");
 
-export const isBefore = (initialDate, finalDate) => moment(finalDate).isBefore(initialDate);
+export const isAfter = (initialDate, finalDate) => moment(initialDate).isAfter(finalDate);
