@@ -37,9 +37,15 @@ export default {
       reach: addYear(getCurrentDate()),
     };
   },
+  created() {
+    this.setPageTitle();
+  },
   methods: {
     onSubmit({ totalAmount, reachGoalBy }) {
       console.log('submitted!', { totalAmount, reachGoalBy });
+    },
+    setPageTitle() {
+      document.title = 'Saving Goal - Buy a house | Origin';
     },
   },
 };
