@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import AppBar from '@components/AppBar/Appbar.vue';
+import AppBar from '@components/AppBar/AppBar.vue';
 
 function shallowMountComponent(props, options) {
   return shallowMount(AppBar, { props, ...options });
